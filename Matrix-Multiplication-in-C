@@ -1,0 +1,105 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+int main()
+{
+    int *matrixA;
+    int *matrixB;
+    int *result;
+    int size_of_A = sizeof(matrixA) / sizeof(matrixA[0]);
+    int size_of_B = sizeof(matrixB) / sizeof(matrixB[0]);
+    int sum = 0;
+    int rowA = 0, rowB = 0;
+    int colA = 0, colB = 0;
+
+    // For Matrix "A"
+
+    printf("\n\t------------------------------------Welcome to Matrix Multiplier------------------------------------\n\n");
+    printf("Enter the number of rows in 1st matrix : ");
+    scanf("%d", &rowA);
+    printf("Enter the number of columns in 1st matrix : ");
+    scanf("%d", &colA);
+
+    matrixA = (int*) malloc((rowA * colA) * sizeof(int));
+
+    for (int r = 0; r < rowA; r++)
+    {
+        for (int c = 0; c < colA; c++)
+        {
+            printf("Enter the value on index [%d][%d] of 1st matrix : ", r, c);
+            scanf("%d", &matrixA[r * colA + c]);
+        }
+    }
+
+    printf("The 1st matrix you entered is : \n");
+
+    for (int r = 0; r < rowA; r++)
+    {
+        for (int c = 0; c < colA; c++)
+        {
+            printf("%d ", matrixA[r * colA + c]);
+        }
+        printf("\n");
+    }
+
+    // For Matrix "B"
+
+    printf("Enter the number of rows in 2nd matrix : ");
+    scanf("%d", &rowB);
+    printf("Enter the number of columns in 2nd matrix : ");
+    scanf("%d", &colB);
+
+    matrixB = (int*) malloc((rowB * colB) * sizeof(int));
+
+    for (int r = 0; r < rowB; r++)
+    {
+        for (int c = 0; c < colB; c++)
+        {
+            printf("Enter the value on index [%d][%d] of 2nd matrix : ", r, c);
+            scanf("%d", &matrixB[r * colB + c]);
+        }
+    }
+
+    printf("The 2nd matrix you entered is : \n");
+
+    for (int r = 0; r < rowB; r++)
+    {
+        for (int c = 0; c < colB; c++)
+        {
+            printf("%d ", matrixB[r * colB + c]);
+        }
+        printf("\n");
+    }
+
+    if(rowA == colB)
+    {
+        result = (int*) malloc((rowA * colB) * sizeof(int));
+        for(int i = 0; i < rowA; i++)
+        {
+            for(int j = 0; j < colB; j++)
+            {
+                for(int k = 0; k < rowB; k++)
+                {
+                    sum += matrixA[i * colA + k] * matrixB[i * colB + k];
+                }
+                result[i * colB + j] = sum;
+                sum = 0;
+            }
+        }
+
+        printf("The multiplication of \'Matrix A\' with \'Matrix B\' is : \n");
+        for(int i=0;i<rowA;i++)
+        {
+            for(int j=0;j<colB;j++)
+            {
+                printf("%d ",result[i*colB+j]);
+            }
+            printf("\n");
+        }
+    }
+    else
+    {
+        printf("The multiplication is not possible!");
+    }
+  return 0;
+}
